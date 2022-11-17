@@ -1,0 +1,106 @@
+{% extends "blog/base.html" %}
+{% block content %}
+{% for post in posts %}
+<div class="about_section layout_padding">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-sm-12">
+        <div class="about_img"><img src="{{ post.author.profile.image.url }}"></div>
+        <div class="like_icon"><img src="static/images/like-icon.png"></div>
+        <p class="post_text">{{ post.date|date:"F d, Y" }}</p>
+        <a href="{% url 'post-detail'  post.id %}">
+          <h2 class="most_text">{{ post.title }}</h2>
+        </a>
+        <div>
+          <p class="lorem_text white_space">{{ post.context }}</p>
+        </div>
+        <div class="read_bt"><a href="#">Read More</a></div>
+
+      </div>
+      <div class="col-lg-3 col-sm-12">
+        <div class="about_main">
+          <h1 class="follow_text">CONNECT & FOLLOW</h1>
+          <div class="follow_icon">
+            <ul>
+              <li><a href="#"><img src="static/images/fb-icon-1.png"></a></li>
+              <li><a href="#"><img src="static/images/twitter-icon-1.png"></a></li>
+              <li><a href="#"><img src="static/images/linkedin-icon-1.png"></a></li>
+              <li><a href="#"><img src="static/images/instagram-icon-1.png"></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+<div class="about_section layout_padding">
+  <div class="container">
+    {% if is_paginated %}
+
+    {% if page_obj.has_previous %}
+    <a class="btn btn-outline-dark mb-4" href="?page=1">First</a>
+    <a class="btn btn-outline-dark mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+    {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+    {% if page_obj.number == num %}
+    <a class="btn btn-outline-dark mb-4" href="?page={{ num }}">{{ num }}</a>
+    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %} <a class="btn btn-outline-dark mb-4"
+      href="?page={{ num }}">{{ num }}</a>
+      {% endif %}
+      {% endfor %}
+
+      {% if page_obj.has_next %}
+      <a class="btn btn-outline-dark mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+      <a class="btn btn-outline-dark mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+      {% endif %}
+
+      {% endif %}
+  </div>
+</div>
+<div class="footer_section layout_padding margin_top_90">
+  <div class="container">
+    <div class="footer_logo"><a href="#"><img src="static/images/footer-logo.png"></a></div>
+    <div class="footer_menu">
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Features</a></li>
+        <li><a href="#">contact us</a></li>
+      </ul>
+    </div>
+    <div class="contact_menu">
+      <ul>
+        <li><a href="#"><img src="static/images/call-icon.png"></a></li>
+        <li><a href="#">Call : +01 1234567890</a></li>
+        <li><a href="#"><img src="static/images/mail-icon.png"></a></li>
+        <li><a href="#">demo@gmail.com</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- footer section end -->
+
+<!-- Javascript files-->
+<script src="static/js/jquery.min.js"></script>
+<script src="static/js/popper.min.js"></script>
+<script src="static/js/bootstrap.bundle.min.js"></script>
+<script src="static/js/jquery-3.0.0.min.js"></script>
+<script src="static/js/plugin.js"></script>
+<!-- sidebar -->
+<script src="static/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="static/js/custom.js"></script>
+<!-- javascript -->
+<script src="static/js/owl.carousel.js"></script>
+<script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+
+<style>
+  .white_space {
+    white-space: normal;
+
+  }
+</style>
+{% endblock content%}
